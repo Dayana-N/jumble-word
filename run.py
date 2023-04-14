@@ -9,7 +9,6 @@ def random_word():
     words = ['happy', 'computer', 'programming', 'successfully']
 
     pick_random = random.choice(words)
-    print(pick_random)
     create_jumble_word(pick_random)
     return pick_random
 
@@ -23,15 +22,37 @@ def create_jumble_word(word):
     return jumble_word
 
 
-def compare_words(jumbled_word, guess_word, random_word, lives):
-    
+def compare_words(guess_word, random_word):
+    '''
+    compare input with word
+    '''
     if guess_word.lower() == random_word:
         print(f'Yes! You got it right. The correct word is {random_word}')
         return True
-    elif guess_word.lower() != random_word and lives > 0:
+    elif guess_word.lower() != random_word:
         print('Wrong Answer. Try again!')
-        lives -= 1
         return False
+
+
+def store_score(score, name):
+    '''
+    Store the highscore in a txt file
+    '''
+    with open('highscore.txt', 'a') as file:
+        file.write(f'{name} - {score}\n')
+
+
+def game_over(lives, score):
+    '''
+    Game Over if lives are 0
+    '''
+    if lives == 0:
+        print('Game Over! You Lost!')
+        user_name = input('Type your name here\n')
+        store_score(score, user_name)
+        print(f'{user_name} your score is {score}')
+        print('Game Over, Bye!')
+        quit()
 
 
 def main():
@@ -49,14 +70,17 @@ def main():
             jumble_picked_word = create_jumble_word(picked_word)
             print(f'Jumbled word is : {jumble_picked_word}')
             guess = input('Please type your guess here\n')
-            result = compare_words(jumble_picked_word, guess, picked_word, lives)
+            result = compare_words(guess, picked_word)
             if result:
                 score += 1
                 print(f'Your score is {score}')
+                print(f'You have {lives} lives')
                 continue
             else:
                 lives -= 1
-                print(f'Lives left {lives}')
+                print(f'Your score is {score}')
+                print(f'You have {lives} lives')
+                game_over(lives, score)
                 continue
             break
         elif play.lower() == 'q':
