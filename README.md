@@ -1,31 +1,9 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome Dayana,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
-
-## Reminders
-
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+# Jumble Word
+This is a very simple project that I created after finishing the Python module at Code Institute. The project is intended for practice only. 
+## Features
+Jumble word would pick a random word and jumble the letters. The user starts with 3 lives and needs to guess each word. Every time the guess is correct the user's score increments and if the guess is wrong the user loses a life. When the user is out of lives the game ends, the program asks for the user's name and stores their high score in a text file.
+## Future Improvements
+- I would like to work on the appearance of tha game using libraries. 
+- I would like to add database to store the highscores instead of txt file. 
+## Images 
+![image](jumbleword.PNG)

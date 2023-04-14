@@ -6,7 +6,24 @@ def random_word():
     '''
     Pick a random word from a list
     '''
-    words = ['happy', 'computer', 'programming', 'successfully']
+    words = [
+        'happy', 'computer', 'programming', 'successfully', 'apple', 'hello',
+        'table', 'chair', 'car', 'ship', 'chicken', 'house', 'village',
+        'build', 'shake', 'fuss', 'instal', 'bother', 'hay', 'draw', 'theory',
+        'inch', 'impact', 'public', 'tell', 'danger', 'talk', 'tower', 'aware',
+        'wreck', 'plant', 'witch', 'smell', 'dine', 'noble', 'snap', 'hole',
+        'aloof', 'marine', 'ego', 'cart', 'list', 'wind', 'endure', 'cereal',
+        'slime', 'cancer', 'anger', 'decade', 'owner', 'resign',
+        'fun', 'hate', 'bitter', 'tent', 'color', 'infect', 'truck', 'bind',
+        'layout', 'self', 'abbey', 'family', 'flight', 'panic', 'fame', 'rear',
+        'sigh', 'era', 'text', 'salmon', 'double', 'god', 'air', 'truck',
+        'gear', 'pray', 'jacket', 'word', 'aloof', 'border', 'sow', 'prison',
+        'sunday', 'hot', 'spray', 'file', 'agile', 'debate', 'thrust',
+        'regard', 'mutter', 'study', 'evoke', 'peel', 'page', 'instal',
+        'coat', 'spy', 'halt', 'remedy', 'judge', 'pull', 'body', 'money',
+        'novel', 'jelly', 'fever', 'gem',
+        'creed', 'duke'
+    ]
 
     pick_random = random.choice(words)
     create_jumble_word(pick_random)
@@ -42,17 +59,16 @@ def store_score(score, name):
         file.write(f'{name} - {score}\n')
 
 
-def game_over(lives, score):
+def game_is_over(score):
     '''
     Game Over if lives are 0
     '''
-    if lives == 0:
-        print('Game Over! You Lost!')
-        user_name = input('Type your name here\n')
-        store_score(score, user_name)
-        print(f'{user_name} your score is {score}')
-        print('Game Over, Bye!')
-        quit()
+    print('Game Over! You Lost!')
+    user_name = input('Type your name here\n')
+    store_score(score, user_name)
+    print(f'{user_name} your score is {score}')
+    print('Game Over, Bye!')
+    quit()
 
 
 def main():
@@ -62,31 +78,34 @@ def main():
     score = 0
     lives = 3
     print('Welcome to Jumble Word')
-    play = input('Press P to play or Q to quit\n')
-
     while True:
+        play = input('Press P to play or Q to quit\n')
         if play.lower() == 'p':
-            picked_word = random_word()
-            jumble_picked_word = create_jumble_word(picked_word)
-            print(f'Jumbled word is : {jumble_picked_word}')
-            guess = input('Please type your guess here\n')
-            result = compare_words(guess, picked_word)
-            if result:
-                score += 1
-                print(f'Your score is {score}')
-                print(f'You have {lives} lives')
-                continue
-            else:
-                lives -= 1
-                print(f'Your score is {score}')
-                print(f'You have {lives} lives')
-                game_over(lives, score)
-                continue
-            break
+            game_over = False
+            while not game_over:
+                # pick random word and create jumbled version
+                picked_word = random_word()
+                jumble_picked_word = create_jumble_word(picked_word)
+                print(f'Jumbled word is : {jumble_picked_word}')
+                # ask the user to make a guess
+                guess = input('Please type your guess here\n')
+                result = compare_words(guess, picked_word)
+                if result:
+                    score += 1
+                    print(f'Your score is {score}')
+                    print(f'You have {lives} lives')
+                else:
+                    lives -= 1
+                    print(f'Your score is {score}')
+                    print(f'You have {lives} lives')
+                    if lives == 0:
+                        game_over = True
+                        game_is_over(score)
+                        break
         elif play.lower() == 'q':
             quit()
         else:
-            print('Please valid input. P to play, Q to quit\n')
+            print('Invalid input. Please enter P to play or Q to quit.')
 
 
 main()
